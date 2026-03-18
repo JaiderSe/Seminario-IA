@@ -1,0 +1,204 @@
+/* ============================================
+   Juego de Memoria - Estilos Personalizados
+   ============================================ */
+
+/* Variables CSS */
+:root {
+    --card-width: 100px;
+    --card-height: 100px;
+    --card-gap: 15px;
+    --card-border-radius: 12px;
+    --flip-duration: 0.5s;
+    --bg-gradient: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+/* Estilos generales */
+body {
+    background: var(--bg-gradient);
+    min-height: 100vh;
+}
+
+/* Contenedor del tablero */
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(4, var(--card-width));
+    grid-template-rows: repeat(4, var(--card-height));
+    gap: var(--card-gap);
+    perspective: 1000px;
+}
+
+/* Estilos de la carta */
+.card {
+    width: var(--card-width);
+    height: var(--card-height);
+    position: relative;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transition: transform var(--flip-duration);
+}
+
+/* Efecto hover */
+.card:hover {
+    transform: scale(1.05);
+}
+
+/* Estado: carta volteada */
+.card.flipped {
+    transform: rotateY(180deg);
+}
+
+/* Estado: carta encontrada */
+.card.matched {
+    cursor: default;
+}
+
+.card.matched .card-front,
+.card.matched .card-back {
+    box-shadow: 0 0 15px rgba(13, 110, 253, 0.6);
+    border-color: #0d6efd;
+}
+
+/* Cara frontal de la carta (emoji) */
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--card-border-radius);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+    backface-visibility: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+/* Cara frontal (visible cuando está volteada) */
+.card-front {
+    background: white;
+    transform: rotateY(180deg);
+    border: 3px solid #dee2e6;
+}
+
+/* Cara trasera (visible cuando está oculta) */
+.card-back {
+    background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+    border: 3px solid #fff;
+}
+
+.card-back::before {
+    content: "?";
+    color: white;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+
+/* Tablets */
+@media (max-width: 768px) {
+    :root {
+        --card-width: 80px;
+        --card-height: 80px;
+        --card-gap: 12px;
+    }
+    
+    .card-front,
+    .card-back {
+        font-size: 2rem;
+    }
+    
+    .card-back::before {
+        font-size: 2rem;
+    }
+}
+
+/* Móviles pequeños */
+@media (max-width: 480px) {
+    :root {
+        --card-width: 65px;
+        --card-height: 65px;
+        --card-gap: 8px;
+    }
+    
+    .card-front,
+    .card-back {
+        font-size: 1.5rem;
+    }
+    
+    .card-back::before {
+        font-size: 1.5rem;
+    }
+    
+    h1 {
+        font-size: 1.75rem;
+    }
+}
+
+/* Móviles muy pequeños */
+@media (max-width: 360px) {
+    :root {
+        --card-width: 55px;
+        --card-height: 55px;
+        --card-gap: 6px;
+    }
+    
+    .card-front,
+    .card-back {
+        font-size: 1.25rem;
+        border-width: 2px;
+    }
+    
+    .card-back::before {
+        font-size: 1.25rem;
+    }
+}
+
+/* ============================================
+   Animaciones adicionales
+   ============================================ */
+
+/* Animación de victoria */
+@keyframes victoryPulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+#victory-message:not(.d-none) {
+    animation: victoryPulse 1s ease-in-out infinite;
+}
+
+/* Transición suave para el mensaje de victoria */
+#victory-message {
+    transition: opacity 0.3s ease;
+}
+
+/* Estilos para el botón */
+#restart-btn {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    transition: all 0.3s ease;
+}
+
+#restart-btn:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(13, 110, 253, 0.4);
+}
+
+#restart-btn:active {
+    background-color: #0a58ca;
+    border-color: #0a58ca;
+    transform: translateY(0);
+}

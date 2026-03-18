@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seminario de Maestría en Inteligencia Artificial - UD</title>
+    
+    <!-- Google Fonts: Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Estilos personalizados -->
+    <style>
+        /* Variables de color */
+        :root {
+            --bg-main: #f8f9fa;
+            --primary: #0d6efd;
+            --secondary: #6c757d;
+            --navbar-bg: #ffffff;
+        }
+
+        /* Estilos generales */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-main);
+            color: #333;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: var(--navbar-bg) !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary) !important;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary) !important;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+            color: white;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 60%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(15deg);
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .btn-cta {
+            padding: 12px 32px;
+            font-weight: 500;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Secciones generales */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #212529;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            color: var(--secondary);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Cards */
+        .custom-card {
+            border: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .custom-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12) !important;
+        }
+
+        .custom-card .card-body {
+            padding: 2rem;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        /* Botones */
+        .btn-primary {
+            border-radius: 8px;
+            padding: 10px 24px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(13, 110, 253, 0.35);
+        }
+
+        /* Recursos */
+        .resource-list .list-group-item {
+            border: none;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            padding: 16px 20px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .resource-list .list-group-item:hover {
+            background: #e9ecef;
+            transform: translateX(8px);
+        }
+
+        .resource-icon {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-right: 12px;
+        }
+
+        /* Footer */
+        footer {
+            background: #e9ecef;
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            color: var(--secondary);
+        }
+
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+
+        /* Imágenes placeholder */
+        .placeholder-img {
+            background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+            color: var(--secondary);
+            font-size: 1.2rem;
+        }
+
+        /* Objetos del curso */
+        .objective-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            padding: 12px;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .objective-item:hover {
+            background: rgba(13, 110, 253, 0.05);
+        }
+
+        .objective-icon {
+            color: var(--primary);
+            font-size: 1.25rem;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        /* Temas */
+        .topic-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 4px;
+            background: rgba(13, 110, 253, 0.1);
+            color: var(--primary);
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .topic-badge:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Universidad card */
+        .university-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .university-header {
+            background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+            color: white;
+            padding: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================ -->
+    <!-- NAVBAR -->
+    <!-- ============================================ -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-robot me-2"></i>Seminario IA - UD
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#inicio">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#curso">Curso</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#actividades">Actividades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#universidad">Universidad</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#recursos">Recursos</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================ -->
+    <!-- HERO SECTION -->
+    <!-- ============================================ -->
+    <section id="inicio" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <h1 class="hero-title animate-fade-in">Seminario de Maestría en Inteligencia Artificial</h1>
+                    <p class="hero-subtitle animate-fade-in delay-1">Explorando los fundamentos, aplicaciones y futuro de la IA</p>
+                    <a href="#actividades" class="btn btn-light btn-cta animate-fade-in delay-2">
+                        <i class="bi bi-calendar-event me-2"></i>Ver actividades
+                    </a>
+                </div>
+                <div class="col-lg-5 mt-5 mt-lg-0">
+                    <img src="https://placehold.co/600x400/0a58ca/ffffff?text=Inteligencia+Artificial" 
+                         alt="Ilustración IA" 
+                         class="img-fluid rounded-4 shadow-lg animate-fade-in delay-3">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SECCIÓN CURSO -->
+    <!-- ============================================ -->
+    <section id="curso">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Información del Curso</h2>
+                <p class="section-subtitle">Conoce los detalles de nuestro seminario de posgrado</p>
+            </div>
+
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <h3 class="h4 mb-4">Acerca del Seminario</h3>
+                    <p class="text-muted mb-4">
+                        Este seminario de maestría está diseñado para proporcionar una comprensión profunda 
+                        de los conceptos fundamentales y las aplicaciones prácticas de la Inteligencia Artificial. 
+                        Los estudiantes exploran las últimas tendencias en IA, desde el aprendizaje automático 
+                        hasta las redes neuronales profundas, siempre con un enfoque ético y responsable.
+                    </p>
+
+                    <h4 class="h5 mb-3">Objetivos</h4>
+                    <div class="objective-item">
+                        <i class="bi bi-check-circle-fill objective-icon"></i>
+                        <span>Comprender los fundamentos teóricos del aprendizaje automático y profundo</span>
+                    </div>
+                    <div class="objective-item">
+                        <i class="bi bi-check-circle-fill objective-icon"></i>
+                        <span>Desarrollar habilidades prácticas en programación para IA con Python</span>
+                    </div>
+                    <div class="objective-item">
+                        <i class="bi bi-check-circle-fill objective-icon"></i>
+                        <span>Analizar aplicaciones reales de IA en diferentes industrias</span>
+                    </div>
+                    <div class="objective-item">
+                        <i class="bi bi-check-circle-fill objective-icon"></i>
+                        <span>Evaluar consideraciones éticas y sociales de la IA</span>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <img src="https://placehold.co/600x500/0d6efd/ffffff?text=Course+Overview" 
+                         alt="Imagen del curso" 
+                         class="img-fluid rounded-4 shadow">
+                </div>
+            </div>
+
+            <!-- Temas principales -->
+            <div class="mt-5 pt-4">
+                <h4 class="h5 text-center mb-4">Temas Principales</h4>
+                <div class="d-flex flex-wrap justify-content-center">
+                    <span class="topic-badge">
+                        <i class="bi bi-brain me-2"></i>Machine Learning
+                    </span>
+                    <span class="topic-badge">
+                        <i class="bi bi-diagram-3 me-2"></i>Deep Learning
+                    </span>
+                    <span class="topic-badge">
+                        <i class="bi bi-chat-dots me-2"></i>NLP
+                    </span>
+                    <span class="topic-badge">
+                        <i class="bi bi-shield-check me-2"></i>Ética en IA
+                    </span>
+                    <span class="topic-badge">
+                        <i class="bi bi-eye me-2"></i>Visión por Computadora
+                    </span>
+                    <span class="topic-badge">
+                        <i class="bi bi-robot me-2"></i>IA Aplicada
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SECCIÓN ACTIVIDADES -->
+    <!-- ============================================ -->
+    <section id="actividades" style="background-color: #f8f9fa;">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Actividades del Seminario</h2>
+                <p class="section-subtitle">Explora las actividades programadas para el curso</p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Card 1 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card custom-card h-100 shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="bi bi-code-slash card-icon"></i>
+                            <h5 class="card-title mb-3">Taller de Python para IA</h5>
+                            <p class="card-text text-muted">
+                                Aprende los fundamentos de Python para implementar algoritmos de aprendizaje automático.
+                            </p>
+                            <a href="#" class="btn btn-primary">
+                                <i class="bi bi-arrow-right me-2"></i>Ir a la actividad
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card custom-card h-100 shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="bi bi-diagram-3 card-icon"></i>
+                            <h5 class="card-title mb-3">Laboratorio de Redes Neuronales</h5>
+                            <p class="card-text text-muted">
+                                Implementa y experimenta con arquitecturas de redes neuronales utilizando frameworks modernos.
+                            </p>
+                            <a href="#" class="btn btn-primary">
+                                <i class="bi bi-arrow-right me-2"></i>Ir a la actividad
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card custom-card h-100 shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="bi bi-clipboard-data card-icon"></i>
+                            <h5 class="card-title mb-3">Proyecto Final</h5>
+                            <p class="card-text text-muted">
+                                Desarrolla un proyecto integrador que aplique los conocimientos adquiridos durante el seminario.
+                            </p>
+                            <a href="#" class="btn btn-primary">
+                                <i class="bi bi-arrow-right me-2"></i>Ir a la actividad
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card custom-card h-100 shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="bi bi-chat-square-text card-icon"></i>
+                            <h5 class="card-title mb-3">Foro de Discusión</h5>
+                            <p class="card-text text-muted">
+                                Participa en debates sobre las implicaciones éticas y sociales de la inteligencia artificial.
+                            </p>
+                            <a href="#" class="btn btn-primary">
+                                <i class="bi bi-arrow-right me-2"></i>Ir a la actividad
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5: Juego de Memoria -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card custom-card h-100 shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="bi bi-puzzle card-icon"></i>
+                            <h5 class="card-title mb-3">Juego de Memoria</h5>
+                            <p class="card-text text-muted">
+                                Pon a prueba tu memoria encontrando las parejas de emojis en este juego interactivo.
+                            </p>
+                            <a href="juego de memoria/index.html" class="btn btn-primary">
+                                <i class="bi bi-arrow-right me-2"></i>Jugar Ahora
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SECCIÓN UNIVERSIDAD -->
+    <!-- ============================================ -->
+    <section id="universidad">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Universidad Distrital Francisco José de Caldas</h2>
+                <p class="section-subtitle">Institución líder en educación superior pública</p>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="university-card">
+                        <div class="university-header text-center">
+                            <i class="bi bi-building fs-1 mb-3 d-block"></i>
+                            <h3 class="mb-2">Universidad Distrital Francisco José de Caldas</h3>
+                            <p class="mb-0 opacity-75">Excelencia académica e innovación tecnológica</p>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="row">
+                                <div class="col-md-6 mb-4 mb-md-0">
+                                    <h5 class="text-primary mb-3">
+                                        <i class="bi bi-bullseye me-2"></i>Misión
+                                    </h5>
+                                    <p class="text-muted">
+                                        La Universidad Distrital es una institución de educación superior pública, 
+                                        comprometida con la formación integral de profesionales críticos y competentes. 
+                                        Promueve la investigación, la innovación y la extensión para contribuir 
+                                        al desarrollo social, económico y cultural de Bogotá y Colombia.
+                                    </p>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5 class="text-primary mb-3">
+                                        <i class="bi bi-book me-2"></i>Enfoque Académico
+                                    </h5>
+                                    <p class="text-muted">
+                                        Con programas de posgrado de alta calidad, la Universidad Distrital 
+                                        forma investigadores y profesionales capaces de abordar los desafíos 
+                                        contemporáneos. El seminario de IA representa nuestro compromiso con 
+                                        las tecnologías emergentes y la preparación de talento humano 
+                                        para la cuarta revolución industrial.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="text-center mt-4 pt-3 border-top">
+                                <img src="https://placehold.co/300x80/0d6efd/ffffff?text=Escudo+UD" 
+                                     alt="Escudo Universidad" 
+                                     class="img-fluid" 
+                                     style="max-height: 80px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SECCIÓN RECURSOS -->
+    <!-- ============================================ -->
+    <section id="recursos" style="background-color: #f8f9fa;">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Recursos Educativos</h2>
+                <p class="section-subtitle">Materiales y herramientas para tu aprendizaje</p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Documentación -->
+                <div class="col-lg-4">
+                    <div class="card custom-card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title mb-4">
+                                <i class="bi bi-book-half text-primary me-2"></i>Documentación
+                            </h5>
+                            <ul class="list-group resource-list">
+                                <li class="list-group-item">
+                                    <i class="bi bi-filetype-py resource-icon"></i>
+                                    <a href="https://docs.python.org/es/3/" target="_blank" class="text-decoration-none text-dark">
+                                        Python Documentation
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="bi bi-box-seam resource-icon"></i>
+                                    <a href="https://scikit-learn.org/stable/" target="_blank" class="text-decoration-none text-dark">
+                                        Scikit-learn Docs
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="bi bi-braces resource-icon"></i>
+                                    <a href="https://keras.io/api/" target="_blank" class="text-decoration-none text-dark">
+                                        Keras API
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="bi bi-cpu resource-icon"></i>
+                                    <a href="https://pytorch.org/docs/stable/index.html" target="_blank" class="text-decoration-none text-dark">
+                                        PyTorch Documentation
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cursos Online -->
+                <div class="col-lg-4">
+                    <div class="card custom-card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title mb-4">
+                                <i class="bi bi-play-circle text-primary me-2"></i>Cursos Online
+                            </h5>
+                            <ul class="list-group resource-list">
+                                <li class="list-group-item">
+                                    <i class="bi bi-mortarboard resource-icon"></i>
+                                    <a href="https://www.coursera.org/browse/data-science" target="_blank" class="text-decoration-none text-dark">
+                                        Coursera - Data Science
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="bi bi-lightbulb resource-icon"></i>
+                                    <a href="https://www.deeplearning.ai/" target="_blank" class="text-decoration-none text-dark">
+                                        DeepLearning.AI
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="bi bi-journal-code resource-icon"></i>
+                                    <a href="https://www.edx.org/learn/artificial-intelligence" target="_blank" class="text-decoration-none text-dark">
+                                        edX - AI Courses
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="bi bi-collection-play resource-icon"></i>
+                                    <a href="https://www.udemy.com/topic/artificial-intelligence/" target="_blank" class="text-decoration-none text-dark">
+                                        Udemy - IA Courses
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Herramientas IA -->
+                <div class="col-lg-4">
+                    <div class="card custom-card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title mb-4">
+                                <i class="bi bi-tools text-primary me-2"></i>Herramientas IA
+                            </h5>
+                            <ul class="list-group resource-list">
+                                <li class="list-group-item">
+                                    <i class="bi bi-github resource-icon"></i>
+                                    <a href="https://github.com/" target="_blank" class="text-decoration-none text-dark">
+                                        GitHub Repositories
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="bi bi-hdd-stack resource-icon"></i>
+                                    <a href="https://colab.research.google.com/" target="_blank" class="text-decoration-none text-dark">
+                                        Google Colab
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="bi bi-cloud resource-icon"></i>
+                                    <a href="https://cloud.google.com/ml-engine" target="_blank" class="text-decoration-none text-dark">
+                                        Google Cloud AI
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="bi bi-grid-3x3 resource-icon"></i>
+                                    <a href="https://www.kaggle.com/" target="_blank" class="text-decoration-none text-dark">
+                                        Kaggle Datasets
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- FOOTER -->
+    <!-- ============================================ -->
+    <footer>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h5 class="mb-3">
+                        <i class="bi bi-robot me-2"></i>Seminario de Maestría en Inteligencia Artificial
+                    </h5>
+                    <p class="footer-content mb-2">
+                        Universidad Distrital Francisco José de Caldas
+                    </p>
+                    <p class="footer-content mb-3">
+                        <small>&copy; 2026 - Todos los derechos reservados</small>
+                    </p>
+                    <hr class="my-3">
+                    <p class="footer-content mb-0">
+                        <small>
+                            <i class="bi bi-person me-1"></i>Creado para fines educativos | 
+                            <i class="bi bi-envelope me-1"></i>seminario.ia@udistrital.edu.co
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
+    <script src="https://files.bpcontent.cloud/2026/03/12/22/20260312221114-W53BLL33.js" defer></script>
+    
+</body>
+</html>
